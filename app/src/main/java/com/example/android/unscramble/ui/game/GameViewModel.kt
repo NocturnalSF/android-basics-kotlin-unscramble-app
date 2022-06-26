@@ -11,10 +11,6 @@ import androidx.lifecycle.ViewModel
 
 const val TAG = "GameFragment"
 class GameViewModel: ViewModel() {
-    init{
-        Log.d(TAG, "GameViewModel Created")
-        getNextWord()
-    }
     private val _score = MutableLiveData(0)
     private val _currentWordCount = MutableLiveData(0)
     private var _currentScrambledWord = MutableLiveData<String>()
@@ -42,6 +38,10 @@ class GameViewModel: ViewModel() {
     // List of words used in the game
     private var wordsList: MutableList<String> = mutableListOf()
     private lateinit var currentWord: String
+    init{
+        Log.d(TAG, "GameViewModel Created")
+        getNextWord()
+    }
     /**
      * Updates currentWord and currentScrambledWord with next word
      */
