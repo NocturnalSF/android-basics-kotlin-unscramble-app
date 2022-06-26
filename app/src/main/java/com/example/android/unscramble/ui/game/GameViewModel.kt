@@ -17,9 +17,8 @@ class GameViewModel: ViewModel() {
     }
     private val _score = MutableLiveData(0)
     private val _currentWordCount = MutableLiveData(0)
-    private var _currentScrambledWord: MutableLiveData<String> = MutableLiveData(" ")
-    private var wordsList: MutableList<String> = mutableListOf()
-    private lateinit var currentWord: String
+    private var _currentScrambledWord = MutableLiveData<String>()
+
     val score: LiveData<Int>
         get() = _score
     val currentWordCount: LiveData<Int>
@@ -40,6 +39,9 @@ class GameViewModel: ViewModel() {
         }
     }
 
+    // List of words used in the game
+    private var wordsList: MutableList<String> = mutableListOf()
+    private lateinit var currentWord: String
     /**
      * Updates currentWord and currentScrambledWord with next word
      */
@@ -47,11 +49,13 @@ class GameViewModel: ViewModel() {
         currentWord = allWordsList.random()
         val tempWord = currentWord.toCharArray()
         tempWord.shuffle()
+        Log.d("getNextWord", currentWord)
+        Log.d("getNextWord", "Words List contains: $wordsList")
 
         while (String(tempWord).equals(currentWord, false)) {
             tempWord.shuffle()
         }
-        if (wordsList?.contains(currentWord) == true) {
+        if (wordsList.contains(currentWord)) {
             getNextWord()
         } else {
             Log.d("Unscramble", "currentWord= $currentWord")
